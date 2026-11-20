@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="230" viewBox="0 0 1200 230" role="img" aria-labelledby="title desc">
+  <title id="title">Buddhika Chathura</title>
+  <desc id="desc">IT Undergraduate | Aspiring Software Engineer</desc>
+  <defs><linearGradient id="bg"><stop stop-color="#101722"/><stop offset=".5" stop-color="#0c5277"/><stop offset="1" stop-color="#5072a8"/></linearGradient></defs>
+  <path d="M0 0H1200V212Q900 165 600 190T0 194Z" fill="#324e76"/>
+  <path d="M0 0H1200V168Q920 173 610 193T0 178Z" fill="url(#bg)"/>
+  <g text-anchor="middle" fill="#fff" font-family="Segoe UI,Arial,sans-serif">
+    <text x="600" y="102" font-size="70" font-weight="700">Buddhika Chathura</text>
+    <text x="600" y="145" font-size="25" font-weight="600">IT Undergraduate | Aspiring Software Engineer</text>
+  </g>
+</svg>
