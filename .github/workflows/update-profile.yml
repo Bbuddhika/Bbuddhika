@@ -1,0 +1,47 @@
+name: Update profile cards
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/update-profile.yml'
+      - 'scripts/update_profile.py'
+      - 'scripts/test_update_profile.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-cards
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.repository == 'Bbuddhika/Bbuddhika' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check calculations and rendering
+        run: python -m unittest discover -s scripts -p 'test_*.py'
+      - name: Generate cards from GitHub data
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROFILE_USER: Bbuddhika
+        run: python scripts/update_profile.py
+      - name: Save refreshed cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/stats.svg assets/languages.svg assets/streak.svg assets/activity.svg
+          if git diff --cached --quiet; then
+            echo "Cards are already current."
+          else
+            git commit -m "Refresh GitHub profile cards"
+            git push
+          fi
